@@ -16,59 +16,69 @@ const Home = () => {
       email:"",
       phone:""
  })
+
+ const getStoredData = () => {
+  const jsonString = localStorage.getItem('userData');
+  return jsonString ? JSON.parse(jsonString) : [];
+};
+const storeData = (data) => {
+  const jsonString = JSON.stringify(data);
+  localStorage.setItem('userData', jsonString);
+};
+
+const existingData = getStoredData();
  const storedEmails = localStorage.getItem('emails');
- const storedData = localStorage.getItem('userData');
+ 
   const [emailsList, setEmailsList] = useState(storedEmails ? JSON.parse(storedEmails) : []);
-  const [datalist, setDatalist] = useState(storedData ? JSON.parse(storedEmails) : []);
+  
 
  const handleChange=(e)=>{
         setValues({...values,[e.target.name]:e.target.value});
+       
  }
+
 
   const handleClick=(e)=>{
     e.preventDefault();
+    
+   // console.log(userdata)
     if (values.email.trim() === '') {
       // Show an error message or perform some action for empty email
       alert('Please enter a valid email address.');
-    } else if (emailsList.includes(values.email)) {
+    }
+    else if(values.phone.trim() === ''){
+      alert('Please enter a valid phone.');
+    }
+    else if(values.name.trim() === ''){
+      alert('Please enter a valid name .');
+    }
+    else if (emailsList.includes(values.email)) {
       // Show an error message or perform some action for duplicate email
       alert('Email already exists in the list!');
     } else {
       // Add the email to the list and update localStorage
+      const updatedData = [...existingData, values];
+    storeData(updatedData);
+    console.log(updatedData)
       setEmailsList((prevEmails) => {
         const newEmailsList = [...prevEmails, values.email];
         localStorage.setItem('emails', JSON.stringify(newEmailsList));
+       
         return newEmailsList;
       });
+      
 
 
-      //storing userdata
-      if (values.email.trim() === '') {
-        // Show an error message or perform some action for empty email
-        alert('Please enter a valid email address.');
-      }  else {
-        // Add the email to the list and update localStorage
-        setDatalist((prevData) => {
-          const newData = [...prevData, values];
-          localStorage.setItem('useData', JSON.stringify(newData));
-          return newData;
-        });
-      // Clear the form values after successful submission
-      setValues({
-        name: "",
-        email: "",
-        phone: ""
-      });
-      // Redirect to the desired page after successful submission
-      setUserDetails(values);
+     
+    setUserDetails(values);
       navigate("/renderdata");
-    }
+  
     console.log(emailsList)
-    console.log(datalist)
+   
   }
 }
 
- // const marginTop = { marginTop: 5 }
+ 
   return (
     <Grid>
             <Paper elevation={20} style={paperStyle}>

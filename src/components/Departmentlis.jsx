@@ -94,9 +94,7 @@ const Departmentlis = () => {
             type="checkbox"
             className="form-check-input"
             name="design"
-            // checked={
-            //   users.filter((user) => user?.isChecked !== true).length < 1
-            // }
+           
             checked={!users.some((user) => user?.isChecked !== true)}
             onChange={handleChange}
           />
@@ -130,9 +128,7 @@ const Departmentlis = () => {
             type="checkbox"
             className="form-check-input"
             name="customer_service"
-            // checked={
-            //   users.filter((user) => user?.isChecked !== true).length < 1
-            // }
+           
             checked={!user.some((user) => user?.isChecked !== true)}
             onChange={handleChange2}
           />
