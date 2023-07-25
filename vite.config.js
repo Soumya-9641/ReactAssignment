@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [react()],
   build: {
     rollupOptions: {
-      external: ['@material-ui/core'],
+      external: ['@material-ui/core','@material-ui/icons/AddCircleOutlineOutlined','@mui/material/Box','@mui/x-data-grid'],
     },
   },
 })
